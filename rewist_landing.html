@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanzlei rewist</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #1a2235;
+    --navy2:   #141a2b;
+    --accent:  #2c3a79;
+    --accent2: #2c3a79;
+    --gold:    #c8a96e;
+    --white:   #ffffff;
+    --muted:   rgba(255,255,255,0.55);
+    --border:  rgba(255,255,255,0.1);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--navy2);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--navy);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar-address {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    display: flex;
+    gap: 2rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .logo-img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+    object-fit: contain;
+  }
+
+  .logo-fallback {
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--white);
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 2rem 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent2));
+  }
+
+  /* subtle diagonal lines */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M0 80L80 0M-20 20L20-20M60 100L100 60' stroke='rgba(255,255,255,0.025)' stroke-width='1'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 660px;
+    width: 100%;
+  }
+
+  .hero-logo {
+    height: 58px;
+    filter: brightness(0) invert(1);
+    object-fit: contain;
+    margin-bottom: 2.4rem;
+    animation: fadeDown 0.8s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto 1.4rem;
+    width: 180px;
+    animation: fadeDown 0.8s 0.1s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.45;
+  }
+
+  .sep-dot {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+
+  .hero-tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3.5rem;
+    animation: fadeDown 0.8s 0.15s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  /* Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    animation: fadeUp 0.9s 0.25s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  .card {
+    text-decoration: none;
+    color: var(--white);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem 1.6rem;
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .card.blue:hover {
+    transform: translateY(-7px);
+    background: rgba(44,58,121,0.18);
+    border-color: rgba(44,58,121,0.5);
+    box-shadow: 0 16px 40px rgba(44,58,121,0.25);
+  }
+
+  .card.gold:hover {
+    transform: translateY(-7px);
+    background: rgba(200,169,110,0.1);
+    border-color: rgba(200,169,110,0.4);
+    box-shadow: 0 16px 40px rgba(200,169,110,0.15);
+  }
+
+  /* Icon circle — v1 style, v3 colors */
+  .card-icon {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+  }
+
+  .card.blue .card-icon {
+    background: rgba(44,58,121,0.22);
+    border: 1px solid rgba(44,58,121,0.45);
+  }
+
+  .card.gold .card-icon {
+    background: rgba(200,169,110,0.15);
+    border: 1px solid rgba(200,169,110,0.38);
+  }
+
+  .card:hover .card-icon { transform: scale(1.1); }
+
+  .card-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+
+  .card-desc {
+    font-size: 0.76rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.02em;
+  }
+
+  .card-cta {
+    font-size: 0.67rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .card.blue .card-cta  { color: #7d90d4; }
+  .card.gold  .card-cta { color: var(--gold); }
+
+  .card:hover .card-cta { opacity: 1; transform: translateY(0); }
+
+  /* Footer */
+  footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--navy);
+    border-top: 1px solid var(--border);
+    padding: 0.85rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.63rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.22);
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.32);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--gold); }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: 1fr; }
+    .topbar-address { display: none; }
+    footer .footer-links { display: none; }
+    footer { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-address">
+    <span>König-Wilhelm-Str. 16 · 88471 Laupheim · 07392 9794 20</span>
+    <span>Dieselstraße 34 · 89155 Erbach · 07392 9794 80</span>
+  </div>
+  <a class="logo" href="https://steuerberater.rewist.de/" target="_blank">
+    <img
+      class="logo-img"
+      src="https://steuerberater.rewist.de/wp-content/uploads/2022/02/rewist-logo-weiss.png"
+      alt="rewist"
+      onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='block';"
+    />
+    <span class="logo-fallback" style="display:none;">rewist</span>
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+
+    <img
+      class="hero-logo"
+      src="https://steuerberater.rewist.de/wp-content/uploads/2022/02/rewist-logo-weiss.png"
+      alt="Kanzlei rewist"
+      onerror="this.style.display='none';"
+    />
+
+    <div class="separator"><div class="sep-dot"></div></div>
+    <p class="hero-tagline">Steuerberater · Laupheim &amp; Erbach · Seit 1975</p>
+
+    <div class="cards">
+
+      <a class="card blue" href="https://steuerberater.rewist.de/" target="_blank" rel="noopener">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(125,144,212,0.9)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="card-title">Kanzlei-Website</div>
+        <div class="card-desc">Leistungen, Team und Kontakt auf einen Blick.</div>
+        <div class="card-cta">Website besuchen →</div>
+      </a>
+
+      <a class="card gold" href="https://www.instagram.com/kanzleirewist/" target="_blank" rel="noopener">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(200,169,110,0.9)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </div>
+        <div class="card-title">Instagram</div>
+        <div class="card-desc">Neuigkeiten und Einblicke aus der Kanzlei.</div>
+        <div class="card-cta">Profil öffnen →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Kanzlei rewist – Steuerberater PartG mbB</span>
+  <span class="footer-links">
+    <a href="https://steuerberater.rewist.de/impressum" target="_blank">Impressum</a>
+    &nbsp;·&nbsp;
+    <a href="https://steuerberater.rewist.de/datenschutz" target="_blank">Datenschutz</a>
+  </span>
+</footer>
+
+</body>
+</html>
