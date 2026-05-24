@@ -14,6 +14,7 @@
     --accent:  #2c3a79;
     --accent2: #2c3a79;
     --gold:    #c8a96e;
+    --teal:    #4aa89a;
     --white:   #ffffff;
     --muted:   rgba(255,255,255,0.55);
     --border:  rgba(255,255,255,0.1);
@@ -63,11 +64,22 @@
   }
 
   .logo-fallback {
+    display: block;
     font-family: 'Merriweather', serif;
     font-size: 1.2rem;
     font-weight: 300;
     letter-spacing: 0.12em;
     color: var(--white);
+  }
+
+  .hero-logo-text {
+    font-family: 'Merriweather', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    color: var(--white);
+    margin-bottom: 2.4rem;
+    animation: fadeDown 0.8s cubic-bezier(.22,1,.36,1) both;
   }
 
   /* Hero */
@@ -102,7 +114,7 @@
     position: relative;
     z-index: 1;
     text-align: center;
-    max-width: 660px;
+    max-width: 960px;
     width: 100%;
   }
 
@@ -151,12 +163,13 @@
   /* Cards */
   .cards {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1.4rem;
     animation: fadeUp 0.9s 0.25s cubic-bezier(.22,1,.36,1) both;
   }
 
   .card {
+    position: relative;
     text-decoration: none;
     color: var(--white);
     background: rgba(255,255,255,0.05);
@@ -186,6 +199,13 @@
     box-shadow: 0 16px 40px rgba(200,169,110,0.15);
   }
 
+  .card.teal:hover {
+    transform: translateY(-7px);
+    background: rgba(74,168,154,0.12);
+    border-color: rgba(74,168,154,0.45);
+    box-shadow: 0 16px 40px rgba(74,168,154,0.18);
+  }
+
   /* Icon circle — v1 style, v3 colors */
   .card-icon {
     width: 58px; height: 58px;
@@ -202,6 +222,11 @@
   .card.gold .card-icon {
     background: rgba(200,169,110,0.15);
     border: 1px solid rgba(200,169,110,0.38);
+  }
+
+  .card.teal .card-icon {
+    background: rgba(74,168,154,0.15);
+    border: 1px solid rgba(74,168,154,0.38);
   }
 
   .card:hover .card-icon { transform: scale(1.1); }
@@ -234,6 +259,7 @@
 
   .card.blue .card-cta  { color: #7d90d4; }
   .card.gold  .card-cta { color: var(--gold); }
+  .card.teal  .card-cta { color: var(--teal); }
 
   .card:hover .card-cta { opacity: 1; transform: translateY(0); }
 
@@ -269,7 +295,7 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @media (max-width: 520px) {
+  @media (max-width: 720px) {
     .cards { grid-template-columns: 1fr; }
     .topbar-address { display: none; }
     footer .footer-links { display: none; }
@@ -335,6 +361,20 @@
         <div class="card-title">Instagram</div>
         <div class="card-desc">Neuigkeiten und Einblicke aus der Kanzlei.</div>
         <div class="card-cta">Profil öffnen →</div>
+      </a>
+
+      <a class="card teal" href="https://steuerberater.rewist.de/karriere/" target="_blank" rel="noopener">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(74,168,154,0.9)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            <line x1="12" y1="12" x2="12" y2="16"/>
+            <line x1="10" y1="14" x2="14" y2="14"/>
+          </svg>
+        </div>
+        <div class="card-title">Jetzt Bewerben</div>
+        <div class="card-desc">Offene Stellen und Einstiegsmöglichkeiten bei rewist.</div>
+        <div class="card-cta">Zur Karriereseite →</div>
       </a>
 
     </div>
